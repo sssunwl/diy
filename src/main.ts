@@ -16,14 +16,31 @@ let mode: 'walk' | 'wall' | 'form' = 'walk', stalls: Stall[] = [], query = '', f
 const scene = new Scene(canvas, s => showStall(s, false), street => { location.hash = 'apply&street=' + street; }, showLook, updateStreet, updateSeen);
 function updateStreet() { document.querySelector('#street-label')!.textContent = region.markets[0].streets[scene.street].name[lang]; updateSeen(); }
 function updateSeen() { document.querySelector('#seen')!.textContent = `${t('seen')} ${scene.current.filter(s => scene.seen.has(s.id)).length}/12`; }
+document.addEventListener('click', e => {
+    if (!(e.target as HTMLElement).closest('.top-actions')) {
+        const menu = document.querySelector<HTMLElement>('#more-menu');
+        if (menu) menu.hidden = true;
+        document.querySelector('#more')?.setAttribute('aria-expanded', 'false');
+    }
+});
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        const menu = document.querySelector<HTMLElement>('#more-menu');
+        if (menu && !menu.hidden) { menu.hidden = true; document.querySelector<HTMLButtonElement>('#more')?.focus(); }
+        document.querySelector('#more')?.setAttribute('aria-expanded', 'false');
+    }
+});
 function navigation() {
-    document.querySelector('#topbar')!.innerHTML = `<a class="logo" href="#"><strong>趁墟<span class="logo-dot">✳</span></strong><small>${lang === 'en' ? 'Hong Kong Handmade Market' : region.brand.tagline}</small></a><nav>${button('walk', t('walk'))}${button('wall', t('wall'))}</nav><nav>${button('apply', t('apply'))}${button('about', t('about'))}${button('language', '中 / EN')}</nav>`;
+    document.querySelector('#topbar')!.innerHTML = `<a class="logo" href="#"><strong>趁墟<span class="logo-dot">✳</span></strong><small>${lang === 'en' ? 'Hong Kong Handmade Market' : region.brand.tagline}</small></a><nav>${button('walk', t('walk'))}${button('wall', t('wall'))}</nav><div class="top-actions"><button type="button" id="apply"><span class="desktop-apply">${t('apply')}</span><span class="mobile-apply">${t('applyShort')}</span></button><button type="button" id="more" aria-label="${t('more')}" aria-expanded="false" aria-controls="more-menu">⋯</button><div id="more-menu" hidden>${button('about', t('about'))}${button('language', '中 / EN')}</div></div>`;
     document.querySelector('#controls')!.innerHTML = `${button('next', t('next'))}<div>${button('prev-street', '← ' + t('prevStreet'))}${button('next-street', t('nextStreet') + ' →')}</div>${button('find', t('find'))}`;
     document.querySelector('#walk')!.addEventListener('click', () => setMode('walk'));
     document.querySelector('#wall')!.addEventListener('click', () => setMode('wall'));
     document.querySelector('#find')!.addEventListener('click', () => setMode('wall'));
     document.querySelector('#apply')!.addEventListener('click', () => location.hash = 'apply');
-    document.querySelector('#about')!.addEventListener('click', showAbout);
+    const menu = document.querySelector<HTMLElement>('#more-menu')!;
+    const more = document.querySelector<HTMLButtonElement>('#more')!;
+    more.addEventListener('click', () => { menu.hidden = !menu.hidden; more.setAttribute('aria-expanded', String(!menu.hidden)); });
+    document.querySelector('#about')!.addEventListener('click', () => { menu.hidden = true; more.setAttribute('aria-expanded', 'false'); showAbout(); });
     document.querySelector('#next')!.addEventListener('click', () => scene.next());
     document.querySelector('#prev-street')!.addEventListener('click', () => scene.change(-1));
     document.querySelector('#next-street')!.addEventListener('click', () => scene.change(1));

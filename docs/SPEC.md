@@ -136,7 +136,7 @@ https://no-boss-here.pages.dev ——颱風天 5 小時做出、上線約 3 天�
 - D1 `diy`：表 `stalls`（id、region、market、status、`live_json`、`draft_json`、email、token_hash、created/updated/approved_at、reject_reason）、`visits`（登入紀錄）、`apply_log`（限流用）
 - **照片存放：Workers KV**（namespace `DIY_PHOTOS`，key `p/<stallId>/<n>-<hash>.webp`）。原因：這個 Cloudflare 帳號**還沒開通 R2**（2026-10-25 實測 code 10042）。照片讀取走 Worker＋Cache API。若 SS 之後在 Dashboard 開通 R2，換成 R2 只改 `storage.ts` 一個檔
 - 公開 API：`GET /api/stalls?region=`、`GET /p/<key>`、`POST /api/apply`（multipart）、`GET|PUT|DELETE /api/manage`（Bearer token）
-- 後台：`/admin`（Worker 直接出 HTML）＋`/api/admin/*`，**Cloudflare Access 只限 sssunjp@gmail.com**，Worker 也要驗 `Cf-Access-Jwt-Assertion`（不能只靠 Access 擋）；照 `Knowledge/30_方法與SOP/登入紀錄/` 加登入紀錄，面板放 `/admin` 頁底
+- 後台：`/admin`（Worker 直接出 HTML）＋`/api/admin/*`，**Cloudflare Access 只限 SS 本人（email 用 secret `ADMIN_EMAIL` 設定，不寫進 repo）**，Worker 也要驗 `Cf-Access-Jwt-Assertion`（不能只靠 Access 擋）；照 `Knowledge/30_方法與SOP/登入紀錄/` 加登入紀錄，面板放 `/admin` 頁底
 - CORS：只允許 `https://sssunwl.github.io` 和本機 dev 來源
 - Turnstile secret、任何金鑰：用 `wrangler secret put`；本機副本放 `~/.config/diy/`，**絕不進 repo**
 - 無追蹤碼；可加 Cloudflare Web Analytics（無 cookie）

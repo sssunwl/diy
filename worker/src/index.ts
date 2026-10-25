@@ -268,7 +268,7 @@ export default { async fetch(req: Request, env: Env, ctx: ExecutionContext): Pro
         const headers = new Headers({ 'Vary': 'Origin' });
         if (api) {
             headers.set('Cache-Control', 'no-store');
-            if (origin) {
+            if (origin && origin !== new URL(req.url).origin) {
                 if (!allowed.includes(origin))
                     return json({ error: '不允許此來源' }, 403);
                 headers.set('Access-Control-Allow-Origin', origin);

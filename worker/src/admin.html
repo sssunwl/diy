@@ -1,8 +1,56 @@
-<!doctype html><html lang="zh-HK"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>趁墟・站長後台</title><style>body{font:16px -apple-system,"PingFang HK",sans-serif;background:#f6ecdc;color:#443c33;max-width:1100px;margin:24px auto;padding:16px}button,a{min-height:44px;display:inline-flex;align-items:center;margin:4px;padding:0 14px}button{background:#ffe2a7;border:1px solid #88755c;cursor:pointer}article{border:1px solid #bda58b;padding:18px;margin:20px 0;background:#fffaf0}.versions{display:flex;gap:20px}.versions section{flex:1;min-width:0}img{width:100px;height:100px;object-fit:cover;cursor:zoom-in}pre{white-space:pre-wrap;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid #cdb99f;text-align:left;overflow-wrap:anywhere}dialog img{width:min(75vw,800px);height:auto}dialog{max-width:90vw}#message{color:#ac382d}@media(max-width:600px){.versions{display:block}}</style><h1>趁墟・站長後台</h1><nav><button data-status="pending">待審</button><button data-status="live">已上架</button><button data-status="rejected">被退回</button></nav><p id="occupancy"></p><p id="message" role="status"></p><main></main><h2>登入紀錄</h2><p>香港時間；保留 365 天，最近 200 筆。</p><table><thead><tr><th>時間</th><th>Email</th><th>路徑</th><th>國家</th></tr></thead><tbody id="visits"></tbody></table><dialog><button id="close">關閉</button><br><img alt="作品大圖"></dialog><script>
-const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let status='pending';
-async function api(path,body){const r=await fetch('/api/admin/'+path,{method:body?'POST':'GET',headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined});const d=await r.json();if(!r.ok)throw Error(d.error);return d;}
-function version(d,title){if(!d)return '<section><h3>'+title+'</h3><p>沒有版本</p></section>';return '<section><h3>'+title+'</h3><h4>'+esc(d.name)+'</h4>'+d.photos.map(p=>'<img src="'+esc(p)+'" alt="作品">').join('')+'<p><a target="_blank" rel="noopener noreferrer" href="'+esc(d.igUrl)+'">查看 IG</a></p><pre>'+esc(JSON.stringify(d,null,2))+'</pre></section>';}
-async function load(){try{const d=await api('list?status='+status);$('#occupancy').textContent=d.occupancy.map(x=>(x.street==='ki-lung'?'基隆街':'汝州街')+' '+x.count+'/12').join('　');$('main').innerHTML=d.stalls.length?d.stalls.map(s=>'<article data-id="'+s.id+'"><p>'+esc(s.email)+' '+esc(s.rejectReason||'')+'</p>'+(s.live&&s.draft?'<p>更改欄位：'+esc(Object.keys(s.draft).filter(k=>JSON.stringify(s.draft[k])!==JSON.stringify(s.live[k])).join('、'))+'</p>':'')+'<div class="versions">'+version(s.live,'公開舊版')+version(s.draft,'送審版本')+'</div>'+(s.draft?'<button data-action="approve">核准</button><button data-action="reject">退回</button>':'')+(s.live?'<button data-action="takedown">下架</button>':'')+'</article>').join(''):'<p>這一欄暫時沒有攤位。</p>';}catch(e){$('#message').textContent=e.message;}}
-document.onclick=async e=>{const b=e.target;if(b.dataset.status){status=b.dataset.status;load();}if(b.tagName==='IMG'&&!b.closest('dialog')){$('dialog img').src=b.src;$('dialog').showModal();}if(b.dataset.action){const action=b.dataset.action,id=b.closest('article').dataset.id;let reason;if(action!=='approve'){reason=prompt('請填寫原因');if(!reason)return;}else if(!confirm('核准這個版本？'))return;try{await api(action,{id,reason});$('#message').textContent='已更新';load();}catch(e){$('#message').textContent=e.message;}}};$('#close').onclick=()=>$('dialog').close();
+<!doctype html>
+<html lang="zh-HK"><head><meta name="robots" content="noindex"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>趁墟・站長後台</title>
+<style>
+*{box-sizing:border-box}body{font:16px -apple-system,"PingFang HK",sans-serif;background:#f6ecdc;color:#443c33;max-width:1200px;margin:24px auto;padding:16px}button,a{min-height:44px;display:inline-flex;align-items:center;margin:4px;padding:0 14px}button{font:inherit;background:#ffe2a7;border:1px solid #88755c;cursor:pointer}button:disabled{opacity:.55;cursor:wait}article{border:1px solid #bda58b;padding:18px;margin:20px 0;background:#fffaf0}.versions{display:flex;gap:20px}.versions section{flex:1;min-width:0;border:1px solid #d5c0a6;padding:16px;background:#fffcf5}.versions h3{margin-top:0}dl{margin:0}.field{padding:10px;margin:0 0 6px;border-radius:3px}.changed{background:#fff0ad;box-shadow:inset 3px 0 #dfb83d}dt{font-size:12px;color:#75614d;margin-bottom:5px}dd{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}.photos{display:flex;flex-wrap:wrap;gap:8px}.photos button{padding:0;margin:0;border:1px solid #bda58b}.photos img{display:block;width:100px;height:100px;object-fit:cover;cursor:zoom-in}.swatch{display:inline-block;width:24px;height:24px;vertical-align:middle;border:1px solid #88755c;margin-right:8px}ul{margin:0;padding-left:20px}.field a{padding:0;margin:0;overflow-wrap:anywhere;word-break:break-all}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}details{margin-top:14px}summary{cursor:pointer;min-height:44px;padding:10px 0}.review-actions{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}.reason{display:block;margin:12px 0 4px;font-size:14px}.reason textarea{display:block;width:100%;max-width:650px;min-height:75px;margin-top:6px;padding:10px;font:inherit;border:1px solid #bda58b;background:#fffdf7}.result{white-space:pre-wrap;color:#356b59}.result.error,#message{color:#ac382d}.visits-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid #cdb99f;text-align:left;overflow-wrap:anywhere}dialog img{display:block;width:min(75vw,800px);height:auto}dialog{max-width:90vw}dialog::backdrop{background:#332a26aa}@media(max-width:650px){.versions{display:block}.versions section{margin-bottom:14px}article{padding:12px}}
+</style></head><body>
+<h1>趁墟・站長後台</h1><nav><button data-status="pending">待審</button><button data-status="live">已上架</button><button data-status="rejected">被退回</button></nav><p id="occupancy"></p><p id="message" role="status"></p><main></main><h2>登入紀錄</h2><p>香港時間；保留 365 天，最近 200 筆。</p><div class="visits-scroll"><table><thead><tr><th>時間</th><th>Email</th><th>路徑</th><th>國家</th></tr></thead><tbody id="visits"></tbody></table></div><dialog><button id="close">關閉</button><img alt="作品大圖"></dialog>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const categories={accessory:'飾物',textile:'布作／針織',leather:'皮革',ceramic:'陶瓷',wood:'木工',paper:'紙品／印刷',scent:'蠟燭／皂／香氛',art:'插畫／藝術',food:'手作食品',class:'手作課程',other:'其他手作'};
+const streets={'ki-lung':'基隆街・布行','yu-chau':'汝州街・珠仔鈕扣'};
+let status='pending',loadSequence=0;
+async function api(path,body){
+ const r=await fetch('/api/admin/'+path,{method:body?'POST':'GET',headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined});
+ const d=await r.json();if(!r.ok)throw Error(d.error);return d;
+}
+// 網址除跳脫外也限制協定，避免舊資料或異常資料成為可執行連結。
+function safeURL(value){try{const u=new URL(value);return u.protocol==='https:'||u.protocol==='http:'?u.href:'';}catch{return '';}}
+function link(value,label){const url=safeURL(value);return url?'<a target="_blank" rel="noopener noreferrer" href="'+esc(url)+'">'+esc(label)+' ↗</a>':'未提供';}
+function version(d,title,other,email){
+ if(!d)return '<section><h3>'+esc(title)+'</h3><p>沒有版本</p></section>';
+ const field=(key,label,html)=>'<div class="field'+(other&&JSON.stringify(d[key])!==JSON.stringify(other[key])?' changed':'')+'" data-field="'+esc(key)+'"><dt>'+esc(label)+'</dt><dd>'+html+'</dd></div>';
+ const color=/^#[0-9a-f]{6}$/i.test(d.color)?d.color:'#b0aaa0';
+ const photos=(d.photos||[]).slice(0,3).map((p,i)=>{const url=safeURL(p);return url?'<button type="button" data-photo="'+esc(url)+'" aria-label="放大作品照片 '+(i+1)+'"><img src="'+esc(url)+'" alt="作品照片 '+(i+1)+'"></button>':'';}).join('');
+ const items='<ul>'+(d.items||[]).map(i=>'<li>'+esc(i.name)+' — HK$ '+esc(Number(i.price).toLocaleString('en-HK'))+'</li>').join('')+'</ul>';
+ return '<section><h3>'+esc(title)+'</h3><dl>'+field('name','品牌名',esc(d.name))+field('by','攤主暱稱',esc(d.by))+field('category','類別',esc(categories[d.category]||d.category))+field('street','街道',esc(streets[d.street]||d.street))+field('color','遮雨棚顏色','<span class="swatch" style="background:'+esc(color)+'"></span>'+esc(d.color))+field('sign','攤位牌',esc(d.sign||'未填寫'))+field('note','給客人的話',esc(d.note||'未填寫'))+field('items','招牌商品',items)+field('photos','作品照片','<div class="photos">'+photos+'</div>')+field('igUrl','IG',link(d.igUrl,'查看 IG'))+field('shopUrl','賣場',link(d.shopUrl,'前往賣場'))+field('email','Email',esc(email))+'</dl><details><summary>原始 JSON</summary><pre>'+esc(JSON.stringify(d,null,2))+'</pre></details></section>';
+}
+function card(s){
+ return '<article data-id="'+esc(s.id)+'">'+(s.rejectReason?'<p>退回／下架原因：'+esc(s.rejectReason)+'</p>':'')+(s.live&&s.draft?'<p>黃色代表有變動的欄位。</p>':'')+'<div class="versions">'+version(s.live,'公開舊版',s.draft,s.email)+version(s.draft,'送審版本',s.live,s.email)+'</div>'+((s.draft||s.live)?'<label class="reason">退回／下架原因<textarea maxlength="500" placeholder="退回或下架前，請在這裡填寫原因"></textarea></label>':'')+'<div class="review-actions">'+(s.draft?'<button data-action="approve">核准</button><button data-action="reject">退回</button>':'')+(s.live?'<button data-action="takedown">下架</button>':'')+'</div><p class="result" role="status"></p></article>';
+}
+async function load(){
+ const sequence=++loadSequence;
+ try{const d=await api('list?status='+status);if(sequence!==loadSequence)return;
+ $('#occupancy').textContent=d.occupancy.map(x=>(streets[x.street]||x.street)+' '+x.count+'/12').join('　');
+ $('main').innerHTML=d.stalls.length?d.stalls.map(card).join(''):'<p>這一欄暫時沒有攤位。</p>';
+ }catch(e){$('#message').textContent=e.message;}
+}
+document.addEventListener('click',async e=>{
+ const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.status){status=b.dataset.status;await load();return;}
+ if(b.dataset.photo){$('dialog img').src=b.dataset.photo;$('dialog').showModal();return;}
+ if(!b.dataset.action)return;
+ const article=b.closest('article'),action=b.dataset.action,id=article.dataset.id;
+ const reason=article.querySelector('textarea')?.value.trim();
+ const result=article.querySelector('.result');result.classList.remove('error');
+ if(action!=='approve'&&!reason){result.textContent='請先填寫退回／下架原因。';result.classList.add('error');article.querySelector('textarea').focus();return;}
+ const buttons=[...article.querySelectorAll('[data-action]')];buttons.forEach(button=>button.disabled=true);
+ const original=b.textContent;b.textContent='處理中…';result.textContent='正在送出…';
+ try{await api(action,{id,...(action==='approve'?{}:{reason})});
+ const text={approve:'已核准並上架',reject:'已退回',takedown:'已下架'}[action];result.textContent=text;$('#message').textContent=text+'：'+id;
+ await load();
+ }catch(e){result.textContent=e.message;result.classList.add('error');buttons.forEach(button=>button.disabled=false);b.textContent=original;}
+});
+$('#close').onclick=()=>$('dialog').close();
 load();api('visits').then(d=>{$('#visits').innerHTML=d.visits.map(v=>'<tr><td>'+esc(new Date(v.at).toLocaleString('zh-HK',{timeZone:'Asia/Hong_Kong',hour12:false}))+'</td><td>'+esc(v.email)+'</td><td>'+esc(v.path)+'</td><td>'+esc(v.country)+'</td></tr>').join('');}).catch(e=>$('#message').textContent=e.message);
-</script></html>
+</script></body></html>

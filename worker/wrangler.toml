@@ -1,9 +1,11 @@
 name = "diy"
 main = "src/index.ts"
 compatibility_date = "2026-10-01"
+workers_dev = false
+routes = [{ pattern = "diy.sssuni.com", custom_domain = true }]
 [vars]
 ALLOWED_ORIGINS = "https://sssunwl.github.io,http://localhost:5196"
-ACCESS_TEAM_DOMAIN = ""
+ACCESS_TEAM_DOMAIN = "bitter-shadow-eaca.cloudflareaccess.com"
 ACCESS_AUD = ""
 # ADMIN_EMAIL 以環境綁定設定，勿把私人資料寫入版本庫。
 [[d1_databases]]

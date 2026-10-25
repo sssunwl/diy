@@ -107,7 +107,7 @@ interface Stall {
 
 ## B. 後端（`worker/`，Cloudflare Worker，TypeScript）
 
-`worker/wrangler.toml`：name `diy`、`main = "src/index.ts"`、compatibility_date `2026-10-01`、D1 binding `DB`（database_name `diy`，`database_id` 留 `"REPLACE_ME"`）、KV binding `PHOTOS`（id 留 `"REPLACE_ME"`）、vars：`ALLOWED_ORIGINS = "https://sssunwl.github.io,http://localhost:5190"`、`ADMIN_EMAIL = "sssunjp@gmail.com"`、`ACCESS_TEAM_DOMAIN`、`ACCESS_AUD`（留空字串）。secret：`TURNSTILE_SECRET`（不寫在檔案裡）。
+`worker/wrangler.toml`：name `diy`、`main = "src/index.ts"`、compatibility_date `2026-10-01`、D1 binding `DB`（database_name `diy`，`database_id` 留 `"REPLACE_ME"`）、KV binding `PHOTOS`（id 留 `"REPLACE_ME"`）、vars：`ALLOWED_ORIGINS = "https://sssunwl.github.io,http://localhost:5190"`、`ADMIN_EMAIL`（站長 email，用 secret 設定）、`ACCESS_TEAM_DOMAIN`、`ACCESS_AUD`（留空字串）。secret：`TURNSTILE_SECRET`（不寫在檔案裡）。
 
 `worker/schema.sql`：
 ```sql

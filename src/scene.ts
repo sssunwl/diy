@@ -14,6 +14,9 @@ export class Scene {
     y = 211;
     camera = 0;
     scale = 3;
+    private dpr = 1;
+    private viewWidth = 0;
+    private viewHeight = 0;
     dir = 0;
     walking = false;
     target: {
@@ -77,15 +80,49 @@ export class Scene {
     get streetId() { return region.markets[0].streets[this.street].id; }
     get current() { return this.stalls.filter(s => s.street === this.streetId); }
     private available() { return this.active && !document.querySelector('#overlay'); }
-    resize() { this.scale = window.innerWidth < 700 ? 2 : 3; while (this.scale > 1 && ((innerHeight - 180) / this.scale < 330 || innerWidth / this.scale < 155))
-        this.scale--; this.scale = Math.max(1, this.scale); this.canvas.width = Math.ceil(innerWidth / this.scale); this.canvas.height = Math.ceil(innerHeight / this.scale); this.canvas.style.width = `${this.canvas.width * this.scale}px`; this.canvas.style.height = `${this.canvas.height * this.scale}px`; this.ctx.imageSmoothingEnabled = false; }
-    point(e: PointerEvent) { const r = this.canvas.getBoundingClientRect(); return { x: (e.clientX - r.left) / this.scale + this.camera, y: (e.clientY - r.top) / this.scale - this.offset }; }
-    get offset() { const top = (innerWidth <= 600 ? 112 : 85) / this.scale; const bottom = 85 / this.scale; return Math.round(top + (this.canvas.height - top - bottom - 375) / 2); }
+    resize() {
+        this.scale = innerWidth < 700 ? 2 : 3;
+        const top = innerWidth < 700 ? 60 : 85;
+        while (this.scale > 1 && ((innerHeight - top - 85) / this.scale < 330 || innerWidth / this.scale < 155)) this.scale--;
+        this.dpr = window.devicePixelRatio || 1;
+        this.viewWidth = innerWidth / this.scale;
+        this.viewHeight = innerHeight / this.scale;
+        this.canvas.style.width = `${innerWidth}px`;
+        this.canvas.style.height = `${innerHeight}px`;
+        this.canvas.width = Math.round(innerWidth * this.dpr);
+        this.canvas.height = Math.round(innerHeight * this.dpr);
+        this.ctx.setTransform(this.scale * this.dpr, 0, 0, this.scale * this.dpr, 0, 0);
+        this.ctx.imageSmoothingEnabled = false;
+    }
+    point(e: Pick<PointerEvent, 'clientX' | 'clientY'>) {
+        const r = this.canvas.getBoundingClientRect();
+        return { x: (e.clientX - r.left) / this.scale + this.camera, y: (e.clientY - r.top) / this.scale - this.offset };
+    }
+    get offset() {
+        const top = (innerWidth < 700 ? 60 : 85) / this.scale, bottom = 85 / this.scale;
+        return Math.round(top + (this.viewHeight - top - bottom - 375) / 2);
+    }
+    // 字體以 CSS 像素指定，長文字只截斷，不以 maxWidth 壓縮字形。
+    private label(text: string, x: number, y: number, width: number, cssSize: number) {
+        const c = this.ctx;
+        c.save();
+        c.font = `${cssSize / this.scale}px -apple-system,"PingFang HK","Noto Sans HK",sans-serif`;
+        c.textAlign = 'center';
+        c.textBaseline = 'middle';
+        let visible = text;
+        if (c.measureText(visible).width > width) {
+            const chars = [...text];
+            while (chars.length && c.measureText(chars.join('') + '…').width > width) chars.pop();
+            visible = chars.join('') + '…';
+        }
+        c.fillText(visible, x, y);
+        c.restore();
+    }
     position(slot: number) { return { x: 158 + (slot % 6) * 160, y: slot < 6 ? 65 : 284 }; }
     front(s: Stall) { const p = this.position(s.slot); return { x: p.x + 56, y: s.slot < 6 ? 177 : 272 }; }
     hit(x: number, y: number) { for (let i = 11; i >= 0; i--) {
         const p = this.position(i);
-        if (x >= p.x && x <= p.x + 112 && y >= p.y && y <= p.y + 90)
+        if (x >= p.x && x <= p.x + 112 && y >= p.y - Math.max(6, 8 / this.scale) && y <= p.y + 88 + Math.max(15, 16 / this.scale))
             return i;
     } return null; }
     nearest() { return this.current.find(s => { const p = this.front(s); return Math.hypot(p.x - this.x, p.y - this.y) <= 24; }); }
@@ -107,7 +144,7 @@ export class Scene {
         this.update(dt); this.draw(now); requestAnimationFrame(n => this.frame(n)); }
     private update(dt: number) {
         if (this.drag)
-            this.pointer = { x: this.pointerClient.x / this.scale + this.camera, y: this.pointerClient.y / this.scale - this.offset };
+            this.pointer = this.point({ clientX: this.pointerClient.x, clientY: this.pointerClient.y });
         let dx = 0, dy = 0;
         if (this.keys.size) {
             dx = Number(this.keys.has('arrowright') || this.keys.has('d')) - Number(this.keys.has('arrowleft') || this.keys.has('a'));
@@ -153,10 +190,13 @@ export class Scene {
         }
     }
     private draw(now: number) {
-        const c = this.ctx, w = this.canvas.width, h = this.canvas.height;
+        const c = this.ctx, w = this.viewWidth, h = this.viewHeight;
+        c.setTransform(this.scale * this.dpr, 0, 0, this.scale * this.dpr, 0, 0);
+        c.imageSmoothingEnabled = false;
         this.camera = Math.max(0, Math.min(1168 - w, this.x - w / 2));
         if (w > 1168)
             this.camera = (1168 - w) / 2;
+        this.camera = Math.round(this.camera);
         c.fillStyle = '#f4dfc0';
         c.fillRect(0, 0, w, h);
         c.save();
@@ -182,22 +222,33 @@ export class Scene {
         c.fillRect(0, 267, 1168, 2);
         c.drawImage(this.image('landmark' + this.street, () => landmarkSprite(this.street === 0 ? 'fabric' : 'buttons')), 20, 59);
         ['post', 'lamp', 'sign'].forEach((k, i) => c.drawImage(this.image(k, () => streetProp(k)), 38 + i * 450, 292));
-        const drawStall = (i: number) => { const p = this.position(i), s = this.current.find(s => s.slot === i); const key = s ? `${s.color}:${s.category}` : 'empty'; c.drawImage(this.image(key, () => stallSprite(s?.color, s?.category, i)), p.x, p.y); c.textAlign = 'center'; c.fillStyle = '#433b32'; c.font = '8px -apple-system,"PingFang HK",sans-serif'; c.fillText(s ? s.name : t('recruit'), p.x + 56, p.y + 9, 92); c.font = '6px -apple-system,"PingFang HK",sans-serif'; if (s) {
-            const seed = [...s.id].reduce((a, v) => a + v.charCodeAt(0), 0);
-            c.fillStyle = '#fff5de';
-            c.fillRect(p.x + 1, p.y + 88, 110, 15);
-            c.fillStyle = '#63513c';
-            c.fillText(dict().awayLines[seed % 4] + (s.sign ? ' · ' + s.sign : ''), p.x + 56, p.y + 98, 106);
-        }
-        else {
-            c.fillText(t('apply'), p.x + 82, p.y + 69, 28);
-        } if (s && this.nearest()?.id === s.id) {
-            c.fillStyle = '#fff8e4';
-            c.fillRect(p.x + 35, p.y - 17, 42, 15);
-            c.fillStyle = '#805744';
-            c.font = '8px sans-serif';
-            c.fillText(t('tap'), p.x + 56, p.y - 6);
-        } };
+        const drawStall = (i: number) => {
+            const p = this.position(i), s = this.current.find(s => s.slot === i);
+            const key = s ? `${s.color}:${s.category}` : 'empty';
+            c.drawImage(this.image(key, () => stallSprite(s?.color, s?.category, i)), p.x, p.y);
+            const nameHeight = Math.max(12, 16 / this.scale);
+            c.fillStyle = '#fff1ce';
+            c.fillRect(p.x + 3, p.y - nameHeight / 2, 106, nameHeight);
+            c.fillStyle = '#433b32';
+            this.label(s ? s.name : t('recruit'), p.x + 56, p.y, 100, 12);
+            if (s) {
+                const seed = [...s.id].reduce((a, v) => a + v.charCodeAt(0), 0);
+                const height = Math.max(15, 16 / this.scale);
+                c.fillStyle = '#fff5de';
+                c.fillRect(p.x + 1, p.y + 88, 110, height);
+                c.fillStyle = '#63513c';
+                this.label(dict().awayLines[seed % 4] + (s.sign ? ' · ' + s.sign : ''), p.x + 56, p.y + 88 + height / 2, 104, 11);
+            } else {
+                c.fillStyle = '#433b32';
+                this.label(t('apply'), p.x + 82, p.y + 67, 28, 11);
+            }
+            if (s && this.nearest()?.id === s.id) {
+                c.fillStyle = '#fff8e4';
+                c.fillRect(p.x + 35, p.y - 25, 42, 16);
+                c.fillStyle = '#805744';
+                this.label(t('tap'), p.x + 56, p.y - 17, 38, 11);
+            }
+        };
         for (let i = 0; i < 6; i++)
             drawStall(i);
         const frame = this.walking ? 2 + Math.floor(now / 125) % 4 : Math.floor(now / 1600) % 2;

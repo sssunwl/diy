@@ -173,7 +173,7 @@ export async function renderForm(host: HTMLElement, street = 'ki-lung', token?: 
             host.querySelector('h1')!.insertAdjacentHTML('afterend', `<p class="notice">${t('saved')}</p>`);
         }
         else {
-            const link = 'https://sssunwl.github.io/diy/#manage=' + response.token;
+            const link = location.origin + import.meta.env.BASE_URL + '#manage=' + response.token;
             host.innerHTML = `<section class="success"><h1>${t('success')}</h1><h2>${t('privateLink')}</h2><p class="private-link">${esc(link)}</p>${button('copy-link', t('copy'))}<p class="notice">${t('linkWarning')}</p></section>`;
             host.querySelector('#copy-link')!.addEventListener('click', async () => { await copyText(link); host.querySelector('#copy-link')!.textContent = t('copied'); });
         }
