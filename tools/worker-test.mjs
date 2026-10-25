@@ -1,0 +1,34 @@
+// 無法開本機 port 時，使用 Node 內建 SQLite／記憶體 KV 執行同一份 Worker。
+import {registerHooks} from 'node:module';
+import {readFileSync} from 'node:fs';
+import {DatabaseSync} from 'node:sqlite';
+import ts from 'typescript';
+import assert from 'node:assert/strict';
+import {photo} from './webp-fixture.mjs';
+registerHooks({load(url,context,next){if(url.endsWith('.html'))return {format:'module',source:'export default '+JSON.stringify(readFileSync(new URL(url),'utf8')),shortCircuit:true};if(url.endsWith('.ts'))return {format:'module',source:ts.transpileModule(readFileSync(new URL(url),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText,shortCircuit:true};return next(url,context);}});
+const {default:worker}=await import('../worker/src/index.ts');
+const sqlite=new DatabaseSync(':memory:');sqlite.exec(readFileSync(new URL('../worker/schema.sql',import.meta.url),'utf8'));
+const db={prepare(sql){const stmt=sqlite.prepare(sql);const bound=(args=[])=>({bind(...values){return bound(values);},async first(){return stmt.get(...args)||null;},async all(){return {results:stmt.all(...args)};},async run(){const result=stmt.run(...args);return {meta:{changes:result.changes}};}});return bound();}};
+const objects=new Map();const kv={async put(k,v){objects.set(k,v);},async get(k){return objects.get(k)||null;},async delete(k){objects.delete(k);},async list({prefix}){return {keys:[...objects.keys()].filter(k=>k.startsWith(prefix)).map(name=>({name})),list_complete:true};}};
+const cache=new Map();globalThis.caches={default:{async match(r){return cache.get(r.url)?.clone();},async put(r,v){cache.set(r.url,v.clone());},async delete(r){return cache.delete(r.url);}}};
+const env={DB:db,PHOTOS:kv,ALLOWED_ORIGINS:'http://localhost:5196',ACCESS_TEAM_DOMAIN:'',ACCESS_AUD:''};const pending=[];const ctx={waitUntil(p){pending.push(p);}};
+async function call(path,init={},status=200){const request=new Request('http://localhost:8796'+path,{...init,headers:{Origin:'http://localhost:5196',...init.headers}});const r=await worker.fetch(request,env,ctx);const d=await r.json();assert.equal(r.status,status,JSON.stringify(d));await Promise.all(pending.splice(0));return d;}
+const data={region:'hk',market:'ssp',street:'ki-lung',name:'測試手作',by:'測試',category:'ceramic',color:'#e86a5c',sign:'',note:'',igUrl:'https://www.instagram.com/',email:'lifecycle@example.invalid',items:[{name:'杯',price:180}],own:true,consent:true};
+const form=(d,includePhoto=false)=>{const f=new FormData();f.set('data',JSON.stringify(d));if(includePhoto)f.set('photo0',new Blob([photo],{type:'image/webp'}),'test.webp');return f;};
+await call('/api/apply',{method:'POST',body:form({...data,name:''})},400);
+const a=await call('/api/apply',{method:'POST',body:form(data,true)},201),auth={Authorization:'Bearer '+a.token};
+const m=await call('/api/manage',{headers:auth});assert.equal(m.status,'pending');const id=m.draft.id;
+assert.ok(!(await call('/api/stalls?region=hk')).stalls.some(s=>s.id===id));
+await call('/api/admin/approve',{method:'POST',body:JSON.stringify({id})});
+let live=(await call('/api/stalls?region=hk')).stalls;assert.equal(live.length,1);assert.equal(live[0].slot,0);assert.ok(!/email|token/i.test(JSON.stringify(live)));console.log('通過：申請、待審不公開、核准與公開欄位白名單');
+const bytes=await worker.fetch(new Request(live[0].photos[0]),env,ctx);assert.equal(bytes.headers.get('Content-Type'),'image/webp');assert.equal((await bytes.arrayBuffer()).byteLength,photo.length);
+await call('/api/manage',{method:'PUT',headers:auth,body:form({...data,name:'修改版',keepPhotos:live[0].photos})});
+const revision=await call('/api/manage',{headers:auth});assert.equal(revision.status,'pending');assert.equal(revision.draft.name,'修改版');assert.equal(revision.live.name,data.name);
+assert.equal((await call('/api/stalls?region=hk')).stalls[0].name,data.name);
+await call('/api/admin/reject',{method:'POST',body:JSON.stringify({id,reason:'請補充作品資料'})});assert.equal((await call('/api/manage',{headers:auth})).status,'rejected');assert.equal((await call('/api/stalls?region=hk')).stalls[0].name,data.name);
+await call('/api/admin/approve',{method:'POST',body:JSON.stringify({id})});assert.equal((await call('/api/stalls?region=hk')).stalls[0].name,'修改版');console.log('通過：修改待審／退回保留舊版、重新核准發布新版');
+const moved=await call('/api/manage',{headers:auth});await call('/api/manage',{method:'PUT',headers:auth,body:form({...data,street:'yu-chau',keepPhotos:moved.live.photos})});await call('/api/admin/approve',{method:'POST',body:JSON.stringify({id})});assert.equal((await call('/api/stalls?region=hk')).stalls[0].street,'yu-chau');
+await call('/api/manage',{method:'DELETE',headers:auth});assert.equal((await call('/api/stalls?region=hk')).stalls.length,0);assert.equal(objects.size,0);await call('/api/manage',{headers:auth},401);console.log('通過：換街分配、收攤刪除 D1／KV、失效 token 拒絕');
+const deny=await worker.fetch(new Request('https://deployed.invalid/admin'),env,ctx);assert.equal(deny.status,403);console.log('通過：正式 host 不會因 AUD 空白略過 Access');
+const r=await worker.fetch(new Request('http://localhost:8796/admin',{headers:{'Sec-Fetch-Dest':'document'}}),env,ctx);assert.equal(r.status,200);await Promise.all(pending.splice(0));assert.equal((await call('/api/admin/visits')).visits.length,1);await worker.fetch(new Request('http://localhost:8796/admin'),env,ctx);await Promise.all(pending.splice(0));assert.equal((await call('/api/admin/visits')).visits.length,1);console.log('通過：登入紀錄只記 document 請求');
+sqlite.close();console.log('Worker 離線生命週期測試全部通過（非 Wrangler runtime 實測）');

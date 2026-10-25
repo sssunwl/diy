@@ -1,0 +1,324 @@
+[
+  {
+    "id": "demoaaaaaaaa",
+    "region": "hk",
+    "market": "ssp",
+    "street": "ki-lung",
+    "slot": 0,
+    "name": "阿婆針線鋪",
+    "by": "阿晴",
+    "category": "textile",
+    "color": "#e86a5c",
+    "sign": "慢慢揀",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "手織小袋",
+        "price": 60
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaab",
+    "region": "hk",
+    "market": "ssp",
+    "street": "ki-lung",
+    "slot": 1,
+    "name": "石硤尾陶房",
+    "by": "小芬",
+    "category": "ceramic",
+    "color": "#f2a541",
+    "sign": "手作有溫度",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "手捏茶杯",
+        "price": 80
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaac",
+    "region": "hk",
+    "market": "ssp",
+    "street": "ki-lung",
+    "slot": 2,
+    "name": "珠仔慢慢串",
+    "by": "阿森",
+    "category": "accessory",
+    "color": "#f5d76e",
+    "sign": "入嚟睇吓",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "玻璃珠耳環",
+        "price": 100
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaad",
+    "region": "hk",
+    "market": "ssp",
+    "street": "ki-lung",
+    "slot": 3,
+    "name": "一針一線",
+    "by": "阿晴",
+    "category": "textile",
+    "color": "#7cc6a4",
+    "sign": "慢慢揀",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "繡花手帕",
+        "price": 120
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaae",
+    "region": "hk",
+    "market": "ssp",
+    "street": "ki-lung",
+    "slot": 4,
+    "name": "皮仔工房",
+    "by": "小芬",
+    "category": "leather",
+    "color": "#5fa8d3",
+    "sign": "手作有溫度",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "植鞣卡套",
+        "price": 140
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaaf",
+    "region": "hk",
+    "market": "ssp",
+    "street": "ki-lung",
+    "slot": 5,
+    "name": "木木小屋",
+    "by": "阿森",
+    "category": "wood",
+    "color": "#8e7cc3",
+    "sign": "入嚟睇吓",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "木製小匙",
+        "price": 160
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaag",
+    "region": "hk",
+    "market": "ssp",
+    "street": "ki-lung",
+    "slot": 6,
+    "name": "紙有心意",
+    "by": "阿晴",
+    "category": "paper",
+    "color": "#f29bb6",
+    "sign": "慢慢揀",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "活版心意卡",
+        "price": 180
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaah",
+    "region": "hk",
+    "market": "ssp",
+    "street": "yu-chau",
+    "slot": 0,
+    "name": "巷口香氣",
+    "by": "小芬",
+    "category": "scent",
+    "color": "#6b7a8f",
+    "sign": "手作有溫度",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "豆蠟小燭",
+        "price": 200
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaai",
+    "region": "hk",
+    "market": "ssp",
+    "street": "yu-chau",
+    "slot": 1,
+    "name": "唐樓畫室",
+    "by": "阿森",
+    "category": "art",
+    "color": "#e86a5c",
+    "sign": "入嚟睇吓",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "街角明信片",
+        "price": 220
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaaj",
+    "region": "hk",
+    "market": "ssp",
+    "street": "yu-chau",
+    "slot": 2,
+    "name": "甜甜手作",
+    "by": "阿晴",
+    "category": "food",
+    "color": "#f2a541",
+    "sign": "慢慢揀",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "手作曲奇",
+        "price": 240
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaak",
+    "region": "hk",
+    "market": "ssp",
+    "street": "yu-chau",
+    "slot": 3,
+    "name": "週末織堂",
+    "by": "小芬",
+    "category": "class",
+    "color": "#f5d76e",
+    "sign": "手作有溫度",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "初學編織課",
+        "price": 260
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaal",
+    "region": "hk",
+    "market": "ssp",
+    "street": "yu-chau",
+    "slot": 4,
+    "name": "小小造物",
+    "by": "阿森",
+    "category": "other",
+    "color": "#7cc6a4",
+    "sign": "入嚟睇吓",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "手製擺設",
+        "price": 280
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaam",
+    "region": "hk",
+    "market": "ssp",
+    "street": "yu-chau",
+    "slot": 5,
+    "name": "深水埗泥日",
+    "by": "阿晴",
+    "category": "ceramic",
+    "color": "#5fa8d3",
+    "sign": "慢慢揀",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "小花器",
+        "price": 300
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  },
+  {
+    "id": "demoaaaaaaan",
+    "region": "hk",
+    "market": "ssp",
+    "street": "yu-chau",
+    "slot": 6,
+    "name": "布頭布尾",
+    "by": "小芬",
+    "category": "textile",
+    "color": "#8e7cc3",
+    "sign": "手作有溫度",
+    "note": "在深水埗的日常裡，慢慢做一件喜歡的作品。",
+    "items": [
+      {
+        "name": "拼布杯墊",
+        "price": 320
+      }
+    ],
+    "photos": [],
+    "igUrl": "https://www.instagram.com/",
+    "demo": true,
+    "approvedAt": "2026-10-01T00:00:00Z"
+  }
+]

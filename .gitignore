@@ -1,5 +1,8 @@
-_ref/
 node_modules/
 dist/
-.DS_Store
-*.local
+_ref/
+.wrangler/
+.dev.vars
+.env.local
+.env.*.local
+*.log

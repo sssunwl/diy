@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --port 5190 --strictPort",
+    "dev": "vite --port 5196 --strictPort",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview --port 5191",
-    "worker:dev": "cd worker && wrangler dev --local --port 8790"
+    "preview": "vite preview --port 5197",
+    "worker:dev": "cd worker && wrangler dev --local --port 8796"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261025.1",

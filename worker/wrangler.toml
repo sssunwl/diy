@@ -1,0 +1,19 @@
+name = "diy"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+[vars]
+ALLOWED_ORIGINS = "https://sssunwl.github.io,http://localhost:5196"
+ACCESS_TEAM_DOMAIN = ""
+ACCESS_AUD = ""
+# ADMIN_EMAIL 以環境綁定設定，勿把私人資料寫入版本庫。
+[[d1_databases]]
+binding = "DB"
+database_name = "diy"
+database_id = "a08839f7-91ef-482f-8408-83b4eae3b74a"
+[[kv_namespaces]]
+binding = "PHOTOS"
+id = "c474cdb92f2b48eca90d6344c29e6424"
+[[rules]]
+type = "Text"
+globs = ["**/*.html"]
+fallthrough = true
