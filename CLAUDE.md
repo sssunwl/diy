@@ -16,7 +16,7 @@
 ## 紅線
 - repo `sssunwl/diy` 是 **public**：攤主 email／申請表回應、參考站截圖（`_ref/`）、付費素材原檔，絕不進 repo
 - 憑證放 `~/.config/diy/`
-- 美術是手繪插畫風（2026-10-26 定案：C 港式墨線淡彩為主、A 鉛筆水彩為輔、小人 B 繪本粗線，見 SPEC §7），用 Codex 訂閱生圖並附 `docs/design/` 參考圖；不抄參考站「老闆不在」的畫風與用語
+- 美術（2026-10-26 定案，SPEC §7）：場景等角平塗手繪；人物地圖上用等角像素 Q 版、放大／對話用動漫 Q 版。Codex 訂閱生圖並附 `docs/design/iso/` 參考圖；全部試作在 sssunwl.github.io/han/sucai/；不抄參考站「老闆不在」的畫風與用語
 - 不擅自放真實手作人的 IG／照片；示範攤要標「示範攤」
 - 有 Cloudflare Access 後台時，照 `Knowledge/30_方法與SOP/登入紀錄/` 加登入紀錄
 
