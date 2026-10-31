@@ -1,2 +1,2 @@
 import { defineConfig } from 'vite';
-export default defineConfig({ base: '/diy/', server: { watch: { ignored: ['**/worker/**'] } } });
+export default defineConfig({ base: '/tekuteku/', server: { watch: { ignored: ['**/worker/**'] } } });

@@ -13,7 +13,7 @@ npm run worker:dev
 npm run dev
 ```
 
-開啟 http://localhost:5196/diy/；後台是 http://localhost:8796/admin。若 Wrangler 版本要求從設定檔目錄執行，使用 `cd worker && npx wrangler d1 execute diy --local --file schema.sql`。本機 D1 與照片儲存在 `worker/.wrangler/`，勿提交。本機無 Access AUD 且 host 為 localhost／127.0.0.1 時才可略過 Access；正式環境必須設定 Access AUD。
+開啟 http://localhost:5196/tekuteku/；後台是 http://localhost:8796/admin。若 Wrangler 版本要求從設定檔目錄執行，使用 `cd worker && npx wrangler d1 execute diy --local --file schema.sql`。本機 D1 與照片儲存在 `worker/.wrangler/`，勿提交。本機無 Access AUD 且 host 為 localhost／127.0.0.1 時才可略過 Access；正式環境必須設定 Access AUD。
 
 `.env.development` 已指定本機 API。按需要在不提交的 `.env.local` 放 `VITE_TURNSTILE_SITEKEY` 和 `VITE_REPORT_EMAIL`。只有 `VITE_` 前綴變數會公開到瀏覽器，絕對不可放 secret。Turnstile site key 是公開識別碼；secret 只存在 Worker。未設 Turnstile secret 時，Worker 只接受 localhost／127.0.0.1 的 Origin 申請。
 
@@ -39,7 +39,7 @@ SMOKE_PHOTO=/absolute/path/smoke-800.webp node tools/smoke.mjs
 3. 以 `npx wrangler secret put TURNSTILE_SECRET`、`npx wrangler secret put ADMIN_EMAIL` 設定秘密及私人資料。Cloudflare 環境綁定設定 `ACCESS_TEAM_DOMAIN`（只有網域、不含路徑）、`ACCESS_AUD`；更新 toml 的非敏感設定以免後續部署覆蓋。正式 AUD 絕不可空白。
 4. Cloudflare Access 保護 `/admin` 和 `/api/admin/*`，只允許站長；Worker 還會獨立檢查 RS256、issuer、aud、有效期與站長 email。Access 不應擋住公開 `/api/stalls`、申請／管理及 `/p/*`。正式 API 綁定 `diy.sssuni.com`，`ALLOWED_ORIGINS` 只填明確來源。
 5. 執行 `cd worker && npx wrangler deploy`。在 Turnstile 設定 GitHub Pages 及本機網域。沒有建立自動寄信服務，本期只收集 email 供站長另行通知。
-6. GitHub Pages 選 Actions，repo variables 設 `TURNSTILE_SITEKEY`、`REPORT_EMAIL`。push main 後 workflow 建置 `/diy/` 並部署。公開檢舉信箱會出現在成品中，請使用可公開的信箱。`base` 固定 `/diy/`。
+6. GitHub Pages 選 Actions，repo variables 設 `TURNSTILE_SITEKEY`、`REPORT_EMAIL`。push main 後 workflow 建置 `/tekuteku/` 並部署。公開檢舉信箱會出現在成品中，請使用可公開的信箱。`base` 固定 `/tekuteku/`。
 
 ## 資料與狀態
 
