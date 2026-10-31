@@ -29,7 +29,7 @@
   "reportUnset": "The report address has not been configured.",
   "tutorial": "Visit in three steps",
   "step1": "① Tap the ground to walk, or use arrow keys / WASD. Drag to pan; scroll or pinch to zoom.",
-  "step2": "② Tap a stall to discover handmade work.",
+  "step2": "② Tap a stall to preview it. Your character walks over to open its details.",
   "step3": "③ Tap your character to choose one of six characters.",
   "start": "Let’s explore",
   "look": "Change your look",
@@ -128,5 +128,7 @@
   "day": "Day",
   "dusk": "Dusk",
   "night": "Night",
-  "mapError": "Map could not load. Please reload."
+  "mapError": "Map could not load. Please reload.",
+  "stallPreview": "Stall preview",
+  "vacantStall": "This spot has no maker yet"
 }

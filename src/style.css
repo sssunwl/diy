@@ -28,3 +28,28 @@
 .role-picker button { min-height: 110px; background: #fff6df; }
 .role-picker img { height: 88px; width: auto; }
 .role-picker .selected { outline: 3px solid #94734e; }
+
+/* Map preview and stall details share the market's paper and wood palette. */
+html,body{overscroll-behavior:none;touch-action:manipulation}
+#street-label{display:flex;align-items:center;gap:10px;border-radius:24px;min-height:36px}
+#street-label #seen{position:static;padding:0 0 0 10px;border:0;border-left:1px solid var(--line);background:none;border-radius:0;font-size:inherit}
+.stall-preview{position:fixed;z-index:12;width:260px;max-width:calc(100vw - 16px);padding:16px 34px 14px 14px;background:rgba(255,248,233,.92);border:1px solid var(--ink);border-radius:6px;box-shadow:2px 3px 0 #51423820;overflow-wrap:anywhere}
+.stall-preview::after{content:"";position:absolute;left:var(--tail-x,50%);bottom:-7px;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);background:#fff8e9eb;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.stall-preview img{width:58px;height:58px;object-fit:cover;float:left;margin:0 10px 6px 0;border-radius:3px}
+.stall-preview strong,.stall-preview small{display:block}
+.stall-preview p{font-size:13px;line-height:1.5;margin:7px 0 0;clear:both}
+.stall-preview .preview-close{position:absolute;right:3px;top:3px;padding:0;min-height:30px;width:30px;border:0;background:transparent;font-size:20px}
+.stall-preview .preview-apply{font-size:12px;min-height:34px;padding:6px 10px;margin-top:10px}
+.stall-overlay{background:rgba(61,48,39,.25);backdrop-filter:none}
+.stall-overlay .dialog{overscroll-behavior:contain}
+@media(max-width:699px){
+ #street-label{top:72px;left:12px;font-size:11px;padding:6px 10px}
+ #controls{bottom:0;width:100%;height:calc(48px + env(safe-area-inset-bottom));padding:0 8px env(safe-area-inset-bottom);border-width:1px 0 0;box-shadow:none;gap:6px;justify-content:space-around}
+ #controls button{font-size:12px;min-height:40px;padding:7px 12px}
+ #controls div{display:contents}
+ #more-menu #full-map{display:none}
+ .stall-overlay{padding:0;align-items:flex-end}
+ .stall-overlay .dialog{height:auto;max-height:62vh;max-height:62dvh;width:100%;border-width:2px 0 0;border-radius:12px 12px 0 0;padding:14px 18px calc(18px + env(safe-area-inset-bottom))}
+ .stall-overlay .dialog header{touch-action:none;cursor:grab;position:relative;padding-top:10px}
+ .stall-overlay .dialog header::before{content:"";position:absolute;top:-5px;left:calc(50% - 20px);width:40px;height:4px;border-radius:4px;background:var(--line)}
+}
