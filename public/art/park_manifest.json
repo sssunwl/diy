@@ -1,0 +1,542 @@
+{
+ "park_jogger_f_se_a": {
+  "w": 55,
+  "h": 96,
+  "anchorX": 27.5,
+  "anchorY": 94
+ },
+ "park_jogger_f_se_b": {
+  "w": 53,
+  "h": 96,
+  "anchorX": 26.5,
+  "anchorY": 94
+ },
+ "park_jogger_f_se_c": {
+  "w": 55,
+  "h": 96,
+  "anchorX": 27.5,
+  "anchorY": 94
+ },
+ "park_jogger_f_ne_a": {
+  "w": 55,
+  "h": 95,
+  "anchorX": 27.5,
+  "anchorY": 93
+ },
+ "park_jogger_f_ne_b": {
+  "w": 50,
+  "h": 96,
+  "anchorX": 25.0,
+  "anchorY": 94
+ },
+ "park_jogger_f_ne_c": {
+  "w": 52,
+  "h": 96,
+  "anchorX": 26.0,
+  "anchorY": 94
+ },
+ "park_jogger_m_se_a": {
+  "w": 48,
+  "h": 95,
+  "anchorX": 24.0,
+  "anchorY": 93
+ },
+ "park_jogger_m_se_b": {
+  "w": 42,
+  "h": 95,
+  "anchorX": 21.0,
+  "anchorY": 93
+ },
+ "park_jogger_m_se_c": {
+  "w": 47,
+  "h": 96,
+  "anchorX": 23.5,
+  "anchorY": 94
+ },
+ "park_jogger_m_ne_a": {
+  "w": 45,
+  "h": 93,
+  "anchorX": 22.5,
+  "anchorY": 91
+ },
+ "park_jogger_m_ne_b": {
+  "w": 39,
+  "h": 95,
+  "anchorX": 19.5,
+  "anchorY": 93
+ },
+ "park_jogger_m_ne_c": {
+  "w": 43,
+  "h": 94,
+  "anchorX": 21.5,
+  "anchorY": 92
+ },
+ "park_dogwalker_se_a": {
+  "w": 53,
+  "h": 96,
+  "anchorX": 26.5,
+  "anchorY": 94
+ },
+ "park_dogwalker_se_b": {
+  "w": 46,
+  "h": 96,
+  "anchorX": 23.0,
+  "anchorY": 94
+ },
+ "park_dogwalker_se_c": {
+  "w": 52,
+  "h": 96,
+  "anchorX": 26.0,
+  "anchorY": 94
+ },
+ "park_dogwalker_ne_a": {
+  "w": 51,
+  "h": 95,
+  "anchorX": 25.5,
+  "anchorY": 93
+ },
+ "park_dogwalker_ne_b": {
+  "w": 44,
+  "h": 96,
+  "anchorX": 22.0,
+  "anchorY": 94
+ },
+ "park_dogwalker_ne_c": {
+  "w": 50,
+  "h": 96,
+  "anchorX": 25.0,
+  "anchorY": 94
+ },
+ "park_grandpa_se_a": {
+  "w": 51,
+  "h": 95,
+  "anchorX": 25.5,
+  "anchorY": 93
+ },
+ "park_grandpa_se_b": {
+  "w": 46,
+  "h": 95,
+  "anchorX": 23.0,
+  "anchorY": 93
+ },
+ "park_grandpa_se_c": {
+  "w": 53,
+  "h": 96,
+  "anchorX": 26.5,
+  "anchorY": 94
+ },
+ "park_grandpa_ne_a": {
+  "w": 50,
+  "h": 95,
+  "anchorX": 25.0,
+  "anchorY": 93
+ },
+ "park_grandpa_ne_b": {
+  "w": 47,
+  "h": 96,
+  "anchorX": 23.5,
+  "anchorY": 94
+ },
+ "park_grandpa_ne_c": {
+  "w": 49,
+  "h": 96,
+  "anchorX": 24.5,
+  "anchorY": 94
+ },
+ "park_grandma_se_a": {
+  "w": 48,
+  "h": 96,
+  "anchorX": 24.0,
+  "anchorY": 94
+ },
+ "park_grandma_se_b": {
+  "w": 44,
+  "h": 94,
+  "anchorX": 22.0,
+  "anchorY": 92
+ },
+ "park_grandma_se_c": {
+  "w": 46,
+  "h": 96,
+  "anchorX": 23.0,
+  "anchorY": 94
+ },
+ "park_grandma_ne_a": {
+  "w": 44,
+  "h": 96,
+  "anchorX": 22.0,
+  "anchorY": 94
+ },
+ "park_grandma_ne_b": {
+  "w": 44,
+  "h": 96,
+  "anchorX": 22.0,
+  "anchorY": 94
+ },
+ "park_grandma_ne_c": {
+  "w": 46,
+  "h": 96,
+  "anchorX": 23.0,
+  "anchorY": 94
+ },
+ "park_cyclist_se_a": {
+  "w": 58,
+  "h": 110,
+  "anchorX": 29.0,
+  "anchorY": 108
+ },
+ "park_cyclist_se_b": {
+  "w": 58,
+  "h": 110,
+  "anchorX": 29.0,
+  "anchorY": 108
+ },
+ "park_cyclist_se_c": {
+  "w": 59,
+  "h": 110,
+  "anchorX": 29.5,
+  "anchorY": 108
+ },
+ "park_cyclist_ne_a": {
+  "w": 57,
+  "h": 112,
+  "anchorX": 28.5,
+  "anchorY": 110
+ },
+ "park_cyclist_ne_b": {
+  "w": 53,
+  "h": 112,
+  "anchorX": 26.5,
+  "anchorY": 110
+ },
+ "park_cyclist_ne_c": {
+  "w": 57,
+  "h": 112,
+  "anchorX": 28.5,
+  "anchorY": 110
+ },
+ "park_shiba_se_a": {
+  "w": 35,
+  "h": 42,
+  "anchorX": 17.5,
+  "anchorY": 40
+ },
+ "park_shiba_se_b": {
+  "w": 33,
+  "h": 41,
+  "anchorX": 16.5,
+  "anchorY": 39
+ },
+ "park_shiba_se_c": {
+  "w": 35,
+  "h": 42,
+  "anchorX": 17.5,
+  "anchorY": 40
+ },
+ "park_shiba_ne_a": {
+  "w": 35,
+  "h": 44,
+  "anchorX": 17.5,
+  "anchorY": 42
+ },
+ "park_shiba_ne_b": {
+  "w": 28,
+  "h": 44,
+  "anchorX": 14.0,
+  "anchorY": 42
+ },
+ "park_shiba_ne_c": {
+  "w": 34,
+  "h": 43,
+  "anchorX": 17.0,
+  "anchorY": 41
+ },
+ "park_poodle_se_a": {
+  "w": 39,
+  "h": 41,
+  "anchorX": 19.5,
+  "anchorY": 39
+ },
+ "park_poodle_se_b": {
+  "w": 36,
+  "h": 41,
+  "anchorX": 18.0,
+  "anchorY": 39
+ },
+ "park_poodle_se_c": {
+  "w": 38,
+  "h": 42,
+  "anchorX": 19.0,
+  "anchorY": 40
+ },
+ "park_poodle_ne_a": {
+  "w": 36,
+  "h": 43,
+  "anchorX": 18.0,
+  "anchorY": 41
+ },
+ "park_poodle_ne_b": {
+  "w": 36,
+  "h": 44,
+  "anchorX": 18.0,
+  "anchorY": 42
+ },
+ "park_poodle_ne_c": {
+  "w": 36,
+  "h": 43,
+  "anchorX": 18.0,
+  "anchorY": 41
+ },
+ "park_chat0_1": {
+  "w": 79,
+  "h": 93,
+  "anchorX": 39.5,
+  "anchorY": 91
+ },
+ "park_chat0_2": {
+  "w": 81,
+  "h": 93,
+  "anchorX": 40.5,
+  "anchorY": 91
+ },
+ "park_chat1_1": {
+  "w": 77,
+  "h": 93,
+  "anchorX": 38.5,
+  "anchorY": 91
+ },
+ "park_chat1_2": {
+  "w": 79,
+  "h": 93,
+  "anchorX": 39.5,
+  "anchorY": 91
+ },
+ "park_chat2_1": {
+  "w": 78,
+  "h": 95,
+  "anchorX": 39.0,
+  "anchorY": 93
+ },
+ "park_chat2_2": {
+  "w": 79,
+  "h": 96,
+  "anchorX": 39.5,
+  "anchorY": 94
+ },
+ "walk2_hero_se_a": {
+  "w": 55,
+  "h": 96,
+  "anchorX": 27.5,
+  "anchorY": 94
+ },
+ "walk2_hero_se_b": {
+  "w": 55,
+  "h": 96,
+  "anchorX": 27.5,
+  "anchorY": 94
+ },
+ "walk2_hero_se_c": {
+  "w": 54,
+  "h": 95,
+  "anchorX": 27.0,
+  "anchorY": 93
+ },
+ "walk2_hero_ne_a": {
+  "w": 54,
+  "h": 95,
+  "anchorX": 27.0,
+  "anchorY": 93
+ },
+ "walk2_hero_ne_b": {
+  "w": 51,
+  "h": 95,
+  "anchorX": 25.5,
+  "anchorY": 93
+ },
+ "walk2_hero_ne_c": {
+  "w": 55,
+  "h": 95,
+  "anchorX": 27.5,
+  "anchorY": 93
+ },
+ "walk2_cap_se_a": {
+  "w": 54,
+  "h": 95,
+  "anchorX": 27.0,
+  "anchorY": 93
+ },
+ "walk2_cap_se_b": {
+  "w": 53,
+  "h": 95,
+  "anchorX": 26.5,
+  "anchorY": 93
+ },
+ "walk2_cap_se_c": {
+  "w": 54,
+  "h": 96,
+  "anchorX": 27.0,
+  "anchorY": 94
+ },
+ "walk2_cap_ne_a": {
+  "w": 52,
+  "h": 94,
+  "anchorX": 26.0,
+  "anchorY": 92
+ },
+ "walk2_cap_ne_b": {
+  "w": 51,
+  "h": 94,
+  "anchorX": 25.5,
+  "anchorY": 92
+ },
+ "walk2_cap_ne_c": {
+  "w": 51,
+  "h": 94,
+  "anchorX": 25.5,
+  "anchorY": 92
+ },
+ "walk2_camera_se_a": {
+  "w": 56,
+  "h": 96,
+  "anchorX": 28.0,
+  "anchorY": 94
+ },
+ "walk2_camera_se_b": {
+  "w": 51,
+  "h": 95,
+  "anchorX": 25.5,
+  "anchorY": 93
+ },
+ "walk2_camera_se_c": {
+  "w": 56,
+  "h": 95,
+  "anchorX": 28.0,
+  "anchorY": 93
+ },
+ "walk2_camera_ne_a": {
+  "w": 54,
+  "h": 94,
+  "anchorX": 27.0,
+  "anchorY": 92
+ },
+ "walk2_camera_ne_b": {
+  "w": 50,
+  "h": 94,
+  "anchorX": 25.0,
+  "anchorY": 92
+ },
+ "walk2_camera_ne_c": {
+  "w": 54,
+  "h": 94,
+  "anchorX": 27.0,
+  "anchorY": 92
+ },
+ "walk2_student_se_a": {
+  "w": 57,
+  "h": 95,
+  "anchorX": 28.5,
+  "anchorY": 93
+ },
+ "walk2_student_se_b": {
+  "w": 57,
+  "h": 95,
+  "anchorX": 28.5,
+  "anchorY": 93
+ },
+ "walk2_student_se_c": {
+  "w": 57,
+  "h": 96,
+  "anchorX": 28.5,
+  "anchorY": 94
+ },
+ "walk2_student_ne_a": {
+  "w": 54,
+  "h": 96,
+  "anchorX": 27.0,
+  "anchorY": 94
+ },
+ "walk2_student_ne_b": {
+  "w": 52,
+  "h": 95,
+  "anchorX": 26.0,
+  "anchorY": 93
+ },
+ "walk2_student_ne_c": {
+  "w": 55,
+  "h": 96,
+  "anchorX": 27.5,
+  "anchorY": 94
+ },
+ "walk2_potter_se_a": {
+  "w": 53,
+  "h": 94,
+  "anchorX": 26.5,
+  "anchorY": 92
+ },
+ "walk2_potter_se_b": {
+  "w": 46,
+  "h": 94,
+  "anchorX": 23.0,
+  "anchorY": 92
+ },
+ "walk2_potter_se_c": {
+  "w": 50,
+  "h": 95,
+  "anchorX": 25.0,
+  "anchorY": 93
+ },
+ "walk2_potter_ne_a": {
+  "w": 53,
+  "h": 96,
+  "anchorX": 26.5,
+  "anchorY": 94
+ },
+ "walk2_potter_ne_b": {
+  "w": 49,
+  "h": 93,
+  "anchorX": 24.5,
+  "anchorY": 91
+ },
+ "walk2_potter_ne_c": {
+  "w": 50,
+  "h": 94,
+  "anchorX": 25.0,
+  "anchorY": 92
+ },
+ "walk2_leather_se_a": {
+  "w": 52,
+  "h": 94,
+  "anchorX": 26.0,
+  "anchorY": 92
+ },
+ "walk2_leather_se_b": {
+  "w": 48,
+  "h": 96,
+  "anchorX": 24.0,
+  "anchorY": 94
+ },
+ "walk2_leather_se_c": {
+  "w": 51,
+  "h": 96,
+  "anchorX": 25.5,
+  "anchorY": 94
+ },
+ "walk2_leather_ne_a": {
+  "w": 48,
+  "h": 95,
+  "anchorX": 24.0,
+  "anchorY": 93
+ },
+ "walk2_leather_ne_b": {
+  "w": 46,
+  "h": 94,
+  "anchorX": 23.0,
+  "anchorY": 92
+ },
+ "walk2_leather_ne_c": {
+  "w": 48,
+  "h": 94,
+  "anchorX": 24.0,
+  "anchorY": 92
+ }
+}

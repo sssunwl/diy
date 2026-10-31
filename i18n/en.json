@@ -28,9 +28,9 @@
   "reportText": "Use the report link in a stall panel to contact the site owner.",
   "reportUnset": "The report address has not been configured.",
   "tutorial": "Visit in three steps",
-  "step1": "① Hold and drag, or tap the ground to walk.",
+  "step1": "① Tap the ground to walk, or use arrow keys / WASD. Drag to pan; scroll or pinch to zoom.",
   "step2": "② Tap a stall to discover handmade work.",
-  "step3": "③ Tap your character to change your look.",
+  "step3": "③ Tap your character to choose one of six characters.",
   "start": "Let’s explore",
   "look": "Change your look",
   "skin": "Skin",
@@ -86,7 +86,7 @@
   "turnstile": "Complete the anti-bot check",
   "zoom": "Enlarge photo",
   "required": "Required",
-  "loading": "Loading…",
+  "loading": "Loading map",
   "categories": {
     "accessory": "Accessories",
     "textile": "Textiles / Knitting",
@@ -117,5 +117,16 @@
     "Making things at home"
   ],
   "applyShort": "Apply",
-  "more": "More options"
+  "more": "More options",
+  "season": "Season",
+  "time": "Time",
+  "fullMap": "Full map",
+  "spring": "Spring",
+  "summer": "Summer",
+  "autumn": "Autumn",
+  "winter": "Winter",
+  "day": "Day",
+  "dusk": "Dusk",
+  "night": "Night",
+  "mapError": "Map could not load. Please reload."
 }

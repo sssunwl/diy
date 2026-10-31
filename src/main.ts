@@ -1,9 +1,8 @@
 import './style.css';
 import { getStalls } from './api';
-import { Scene, type Look } from './scene';
+import { Scene, ROLES, type Look } from './scene';
 import type { Stall, Category } from './types';
 import { CATEGORIES } from './types';
-import { SKINS, HAIRS, HAIR_COLORS, CLOTH_COLORS } from './pixelkit/character.js';
 import { productPlaceholder } from './pixelkit/market.js';
 import { toCanvas } from './pixelkit/core.js';
 import { esc, t, dict, lang, toggleLang, modal, button, read, write } from './ui';
@@ -15,7 +14,7 @@ const content = document.querySelector<HTMLElement>('#content')!, canvas = docum
 let mode: 'walk' | 'wall' | 'form' = 'walk', stalls: Stall[] = [], query = '', filter: Category | '' = '';
 const scene = new Scene(canvas, s => showStall(s, false), street => { location.hash = 'apply&street=' + street; }, showLook, updateStreet, updateSeen);
 function updateStreet() { document.querySelector('#street-label')!.textContent = region.markets[0].streets[scene.street].name[lang]; updateSeen(); }
-function updateSeen() { document.querySelector('#seen')!.textContent = `${t('seen')} ${scene.current.filter(s => scene.seen.has(s.id)).length}/12`; }
+function updateSeen() { document.querySelector('#seen')!.textContent = `${t('seen')} ${scene.current.filter(s => scene.seen.has(s.id)).length}/${scene.current.length}`; }
 document.addEventListener('click', e => {
     if (!(e.target as HTMLElement).closest('.top-actions')) {
         const menu = document.querySelector<HTMLElement>('#more-menu');
@@ -31,7 +30,7 @@ document.addEventListener('keydown', e => {
     }
 });
 function navigation() {
-    document.querySelector('#topbar')!.innerHTML = `<a class="logo" href="#"><strong>趁墟<span class="logo-dot">✳</span></strong><small>${lang === 'en' ? 'Hong Kong Handmade Market' : region.brand.tagline}</small></a><nav>${button('walk', t('walk'))}${button('wall', t('wall'))}</nav><div class="top-actions"><button type="button" id="apply"><span class="desktop-apply">${t('apply')}</span><span class="mobile-apply">${t('applyShort')}</span></button><button type="button" id="more" aria-label="${t('more')}" aria-expanded="false" aria-controls="more-menu">⋯</button><div id="more-menu" hidden>${button('about', t('about'))}${button('language', '中 / EN')}</div></div>`;
+    document.querySelector('#topbar')!.innerHTML = `<a class="logo" href="#"><strong>趁墟<span class="logo-dot">✳</span></strong><small>${lang === 'en' ? 'Hong Kong Handmade Market' : region.brand.tagline}</small></a><nav>${button('walk', t('walk'))}${button('wall', t('wall'))}</nav><div class="top-actions"><button type="button" id="apply"><span class="desktop-apply">${t('apply')}</span><span class="mobile-apply">${t('applyShort')}</span></button><button type="button" id="more" aria-label="${t('more')}" aria-expanded="false" aria-controls="more-menu">⋯</button><div id="more-menu" hidden>${button('about', t('about'))}${button('language', '中 / EN')}${button('season', t('season') + ' · ' + t(scene.season))}${button('time', t('time') + ' · ' + t(scene.time))}${button('full-map', t('fullMap'))}</div></div>`;
     document.querySelector('#controls')!.innerHTML = `${button('next', t('next'))}<div>${button('prev-street', '← ' + t('prevStreet'))}${button('next-street', t('nextStreet') + ' →')}</div>${button('find', t('find'))}`;
     document.querySelector('#walk')!.addEventListener('click', () => setMode('walk'));
     document.querySelector('#wall')!.addEventListener('click', () => setMode('wall'));
@@ -47,6 +46,9 @@ function navigation() {
     document.querySelector('#language')!.addEventListener('click', () => { toggleLang(); document.querySelector<HTMLButtonElement>('#close-modal')?.click(); navigation(); updateStreet(); if (mode === 'wall')
         renderWall(); if (mode === 'form')
         route(); });
+    document.querySelector('#season')!.addEventListener('click', async () => { await scene.cycleSeason(); navigation(); });
+    document.querySelector('#time')!.addEventListener('click', () => { scene.cycleTime(); navigation(); });
+    document.querySelector('#full-map')!.addEventListener('click', () => scene.fullMap());
     updateSeen();
 }
 function setMode(next: 'walk' | 'wall' | 'form') { mode = next; scene.active = next === 'walk'; document.body.dataset.mode = next; content.hidden = next === 'walk'; canvas.hidden = next !== 'walk'; document.querySelector<HTMLElement>('#controls')!.hidden = next !== 'walk'; document.querySelector<HTMLElement>('#street-label')!.hidden = next !== 'walk'; document.querySelector<HTMLElement>('#seen')!.hidden = next !== 'walk'; if (next !== 'form') {
@@ -80,15 +82,7 @@ function showStall(s: Stall, wall = mode === 'wall') { let index = 0; const repo
     }
 }
 catch { /* 使用者取消分享 */ } }); box.querySelector('#go-stall')?.addEventListener('click', () => { box.querySelector<HTMLButtonElement>('#close-modal')!.click(); setMode('walk'); scene.visit(s); }); }
-function showLook() { const groups: {
-    key: keyof Look;
-    values: string[];
-    label: string;
-}[] = [{ key: 'skin', values: SKINS, label: t('skin') }, { key: 'hair', values: HAIRS, label: t('hair') }, { key: 'hairColor', values: HAIR_COLORS, label: t('hairColor') }, { key: 'cloth', values: CLOTH_COLORS, label: t('cloth') }]; const box = modal(t('look'), groups.map(g => `<fieldset><legend>${g.label}</legend><div class="${g.key === 'hair' ? 'chips' : 'swatches'}">${g.values.map((v, i) => `<button type="button" data-look="${g.key}" data-value="${v}" ${g.key !== 'hair' ? `style="--swatch:${v};background:${v}"` : ''} aria-label="${g.label} ${i + 1}" aria-pressed="${scene.look[g.key] === v}" class="${scene.look[g.key] === v ? 'selected' : ''}">${g.key === 'hair' ? dict().hairs[i] : '<span class="sr">' + g.label + ' ' + (i + 1) + '</span>'}</button>`).join('')}</div></fieldset>`).join('')); box.addEventListener('click', e => { const b = (e.target as HTMLElement).closest<HTMLElement>('[data-look]'); if (b) {
-    const k = b.dataset.look as keyof Look;
-    scene.setLook({ ...scene.look, [k]: b.dataset.value! });
-    box.querySelectorAll(`[data-look="${k}"]`).forEach(el => { const selected = (el as HTMLElement).dataset.value === b.dataset.value; el.classList.toggle('selected', selected); el.setAttribute('aria-pressed', String(selected)); });
-} }); }
+function showLook() { const box = modal(t('look'), `<div class="role-picker">${ROLES.map((role, i) => `<button type="button" data-role="${role}" aria-label="${t('look')} ${i + 1}" aria-pressed="${scene.look.role === role}" class="${scene.look.role === role ? 'selected' : ''}"><img src="${import.meta.env.BASE_URL}art/walk2_${role}_se_b.webp" alt=""></button>`).join('')}</div>`); box.addEventListener('click', e => { const b = (e.target as HTMLElement).closest<HTMLElement>('[data-role]'); if (!b) return; scene.setLook({ role: b.dataset.role as Look['role'] }); box.querySelectorAll<HTMLElement>('[data-role]').forEach(el => { const selected = el.dataset.role === scene.look.role; el.classList.toggle('selected', selected); el.setAttribute('aria-pressed', String(selected)); }); }); }
 function showAbout() { modal(t('about'), `<p>${t('aboutText')}</p><p>${t('disclaimer')}</p><p>${t('banned')}</p><p>${import.meta.env.VITE_REPORT_EMAIL ? t('reportText') : t('reportUnset')}</p>`); }
 let managementToken: string | undefined;
 async function route() { const hash = location.hash.slice(1); if (hash.startsWith('manage=')) {

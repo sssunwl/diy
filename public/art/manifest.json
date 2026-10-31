@@ -1,0 +1,170 @@
+{
+  "stall_accessory": {
+    "w": 468,
+    "h": 545,
+    "anchorX": 387.0,
+    "anchorY": 543
+  },
+  "stall_textile": {
+    "w": 436,
+    "h": 538,
+    "anchorX": 384.5,
+    "anchorY": 537
+  },
+  "stall_leather": {
+    "w": 467,
+    "h": 557,
+    "anchorX": 317.5,
+    "anchorY": 556
+  },
+  "stall_ceramic": {
+    "w": 473,
+    "h": 526,
+    "anchorX": 303.0,
+    "anchorY": 524
+  },
+  "stall_wood": {
+    "w": 436,
+    "h": 527,
+    "anchorX": 296.5,
+    "anchorY": 525
+  },
+  "stall_paper": {
+    "w": 479,
+    "h": 547,
+    "anchorX": 265.5,
+    "anchorY": 546
+  },
+  "stall_candle": {
+    "w": 441,
+    "h": 490,
+    "anchorX": 328.5,
+    "anchorY": 489
+  },
+  "stall_art": {
+    "w": 454,
+    "h": 515,
+    "anchorX": 348.5,
+    "anchorY": 513
+  },
+  "stall_food": {
+    "w": 449,
+    "h": 499,
+    "anchorX": 285.5,
+    "anchorY": 498
+  },
+  "stall_workshop": {
+    "w": 472,
+    "h": 474,
+    "anchorX": 232.5,
+    "anchorY": 472
+  },
+  "stall_other": {
+    "w": 452,
+    "h": 506,
+    "anchorX": 303.5,
+    "anchorY": 504
+  },
+  "stall_empty": {
+    "w": 425,
+    "h": 484,
+    "anchorX": 277.5,
+    "anchorY": 482
+  },
+  "prop_postbox": {
+    "w": 152,
+    "h": 310,
+    "anchorX": 77.5,
+    "anchorY": 308
+  },
+  "prop_streetlamp": {
+    "w": 154,
+    "h": 372,
+    "anchorX": 37.0,
+    "anchorY": 370
+  },
+  "prop_plant_tall": {
+    "w": 255,
+    "h": 375,
+    "anchorX": 122.0,
+    "anchorY": 374
+  },
+  "prop_plant_round": {
+    "w": 276,
+    "h": 295,
+    "anchorX": 137.0,
+    "anchorY": 293
+  },
+  "prop_flowerpots": {
+    "w": 340,
+    "h": 306,
+    "anchorX": 188.0,
+    "anchorY": 305
+  },
+  "prop_crates": {
+    "w": 348,
+    "h": 334,
+    "anchorX": 152.0,
+    "anchorY": 332
+  },
+  "prop_cardboard": {
+    "w": 295,
+    "h": 276,
+    "anchorX": 167.5,
+    "anchorY": 274
+  },
+  "prop_blackboard": {
+    "w": 272,
+    "h": 314,
+    "anchorX": 172.0,
+    "anchorY": 312
+  },
+  "prop_railing": {
+    "w": 332,
+    "h": 301,
+    "anchorX": 295.0,
+    "anchorY": 300
+  },
+  "prop_bench": {
+    "w": 373,
+    "h": 325,
+    "anchorX": 259.5,
+    "anchorY": 323
+  },
+  "prop_cat": {
+    "w": 247,
+    "h": 250,
+    "anchorX": 109.5,
+    "anchorY": 249
+  },
+  "prop_lights": {
+    "w": 395,
+    "h": 186,
+    "anchorX": 184.0,
+    "anchorY": 184
+  },
+  "bldg_fabric": {
+    "w": 658,
+    "h": 664,
+    "anchorX": 472.0,
+    "anchorY": 662
+  },
+  "bldg_buttons": {
+    "w": 653,
+    "h": 686,
+    "anchorX": 455.5,
+    "anchorY": 684
+  },
+  "bldg_leather": {
+    "w": 667,
+    "h": 674,
+    "anchorX": 439.0,
+    "anchorY": 672
+  },
+  "bldg_plain": {
+    "w": 662,
+    "h": 630,
+    "anchorX": 578.0,
+    "anchorY": 628
+  }
+}

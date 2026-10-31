@@ -22,3 +22,9 @@
  #street-label,#seen{top:72px}
  #content{top:60px}
 }
+
+#street-canvas { touch-action: none; }
+.role-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.role-picker button { min-height: 110px; background: #fff6df; }
+.role-picker img { height: 88px; width: auto; }
+.role-picker .selected { outline: 3px solid #94734e; }
